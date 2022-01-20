@@ -1,0 +1,127 @@
+.movies-card {
+  overflow: hidden;
+  width: 364px;
+  height: 281px;
+  background: #FDFDFD;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+.movies-card__container{
+  width: 364px;
+  height: 203px;
+}
+
+.movies-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.movies-card__info-container {
+  box-sizing: border-box;
+  padding-top: 16px;
+  position: relative;
+  width: 364px;
+  height: 78px;
+}
+
+.movies-card__movie-name {
+  margin: 0 0 0 16px;
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.movies-card__movie-duration {
+  margin: 17px 0 0 16px;;
+  font-family: Inter, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+}
+
+.movies-card__delete {
+  position: absolute;
+  top: 19px;
+  right: 24px;
+  background: url(../../../images/delete.svg) center no-repeat;
+  height: 12px;
+  width: 15px;
+  border: none;
+  box-sizing: border-box;
+  transition: opacity 0.1s linear 0.1s;
+}
+
+.movies-card__delete:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 1300px) {
+  .movies-card {
+    width: 339px;
+    height: 262px;
+  }
+
+  .movies-card__container{
+    width: 339px;
+    height: 190px;
+  }
+
+  .movies-card__info-container {
+    padding-top: 14px;
+    width: 339px;
+    height: 72px;
+  }
+
+  .movies-card__movie-name {
+    margin: 0 0 0 14px;
+  }
+
+  .movies-card__movie-duration {
+    margin: 15px 0 0 14px;
+  }
+
+  .movies-card__like {
+    top: 18px;
+    right: 22px;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .movies-card {
+    width: 300px;
+    height: 237px;
+  }
+
+  .movies-card__container{
+    width: 300px;
+    height: 168px;
+  }
+
+  .movies-card__info-container {
+    width: 300px;
+    height: 69px;
+  }
+
+  .movies-card__movie-name {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .movies-card__movie-duration {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .movies-card__like {
+    top: 17px;
+    right: 18px;
+  }
+}

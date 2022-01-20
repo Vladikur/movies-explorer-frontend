@@ -1,0 +1,133 @@
+.menu-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  transition-property: opacity, z-index;
+  transition-duration: 0.5s, 0s;
+  transition-delay: 0s, 0.5s;
+  z-index: -1;
+}
+
+.menu-popup_is-opened {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s, 0s;
+  z-index: 2;
+}
+
+.menu-popup__container {
+  height: 100%;
+  width: 100%;
+  max-width: 520px;
+  padding: 144px 0 90px 0;
+  background: white;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.menu-popup__link-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.menu-popup__link {
+  margin: 0 0 24px 0;
+  font-family: Inter, 'Arial', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  transition: opacity 0.1s linear 0.1s;
+  opacity: 1;
+}
+
+.menu-popup__link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.menu-popup__link_active {
+  border-bottom: 2px solid black;
+}
+
+.menu-popup__close {
+  background: url(../../images/close-menu.svg) center no-repeat;
+  height: 31px;
+  width: 31px;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 23px;
+  right: 23px;
+  transition: opacity 0.1s linear 0.1s;
+}
+.menu-popup__close:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.menu-popup__container-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 32px;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+
+.menu-popup__icon {
+  width: 12px;
+  height: 14px;
+  margin: 0 7px 0 0;
+}
+
+.menu-popup__link-profile {
+  margin: 0;
+  font-family: Inter, 'Arial', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  transition: opacity 0.1s linear 0.1s;
+  opacity: 1;
+}
+
+.menu-popup__link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 600px) {
+  .menu-popup__container {
+    max-width: 320px;
+  }
+
+  .menu-popup__close {
+    top: 14px;
+    right: 14px;
+  }
+  
+  .menu-popup__container {
+    padding: 144px 0 46px 0;
+  }
+}

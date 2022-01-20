@@ -1,0 +1,28 @@
+.login {
+  box-sizing: border-box;
+}
+
+.login__header-container {
+  width: 536px;
+  margin: 0 auto 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .login {
+    padding: 216px 0 0 0;
+  }
+
+  .login__header-container {
+    width: 456px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .login {
+    padding: 40px 0 40px 0;
+  }
+
+  .login__header-container {
+    width: 66px;
+  }
+}
