@@ -3,9 +3,9 @@ import React from 'react';
 function SearchForm(props) {
 
   return (
-    <form className="search-form">
+    <form className="search-form" noValidate>
       <div className="search-form__container">
-        <input className="search-form__input" id="search-movies" type="text" placeholder="Фильм" name="movie" ></input>
+        <input className="search-form__input" id="search-movies" type="text" placeholder="Фильм" name="movie" required ></input>
         <button className="search-form__button">Найти</button>
       </div>
       <div className="search-form__container">
