@@ -1,0 +1,126 @@
+.navigation__link {
+  margin: 0;
+  font-family: Inter, 'Arial', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  transition: opacity 0.1s linear 0.1s;
+  opacity: 1;
+}
+
+.navigation__link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.navigation__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 676px;
+}
+
+.navigation__link_type_signin {
+  margin: 0 0 0 30px;
+  padding: 8px 20px 8px 20px;
+  background: #2BE080;
+  border-radius: 3px;
+}
+
+.navigation__link_active {
+  font-weight: bold;
+}
+
+.navigation__icon {
+  width: 12px;
+  height: 14px;
+  margin: 0 7px 0 0;
+}
+
+.navigation__link_type_profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__container-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 32px;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+
+.navigation__link_margin-rigt_16px {
+  margin-right: 16px;
+}
+
+.navigation__button-menu {
+  width: 28px;
+  height: 28px;
+  transition: opacity 0.1s linear 0.1s;
+  background: url(../../images/open-menu.svg) center no-repeat;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  display: none;
+  transition: opacity 0.1s linear 0.1s;
+}
+
+.navigation__button-menu:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 1000px) {
+  .navigation__container {
+    width: 540px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .navigation__container {
+    width: 440px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__container {
+    width: fit-content;
+  }
+
+  .navigation__button-menu {
+    display: block;
+  }
+
+  .navigation__container_links {
+    display: none;
+  }
+
+  .navigation__container-icon {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .navigation__link {
+    font-size: 10px;
+  }
+
+  .navigation__link_type_signin {
+    margin: 0 0 0 14px;
+    padding: 5px 12px 5px 12px;
+  }
+
+  .navigation__button-menu {
+    width: 22px;
+    height: 24px;
+  }
+}

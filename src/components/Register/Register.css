@@ -1,0 +1,28 @@
+.register {
+  box-sizing: border-box;
+}
+
+.register__header-container {
+  width: 536px;
+  margin: 0 auto 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .register {
+    padding: 216px 0 0 0;
+  }
+
+  .register__header-container {
+    width: 456px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .register {
+    padding: 40px 0 40px 0;
+  }
+
+  .register__header-container {
+    width: 66px;
+  }
+}
