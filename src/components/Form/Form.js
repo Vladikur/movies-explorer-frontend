@@ -7,9 +7,9 @@ function Form(props) {
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit} noValidate>
+    <>
       {props.children}
-    </form>
+    </>
   );
 }
 export default Form;

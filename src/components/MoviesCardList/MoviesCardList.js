@@ -7,7 +7,10 @@ function MoviesCardList(props) {
       <div className="movies-card-list__container">
         {props.children}
       </div>
-      <button className="movies-card-list__button" aria-label="Ещё фильмы" type="button">Ещё</button>
+      { props.visibleMoreButton ?
+      <button onClick={props.seeMore} className="movies-card-list__button" aria-label="Ещё фильмы" type="button">Ещё</button> :
+      <div className="movies-card-list__emty-container"></div>
+      }
     </div>
   );
 }
