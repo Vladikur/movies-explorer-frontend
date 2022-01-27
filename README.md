@@ -8,6 +8,7 @@
 
 ## Проект размещен на виртуальной машине:
 Ссылка на фронтенд: https://vladikur.nomoredomains.rocks
+Ссылка на бэкенд:https://api.vladikur.nomoredomains.rocks
 
 ## Доступные скрипты
 
