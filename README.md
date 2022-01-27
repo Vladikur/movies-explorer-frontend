@@ -7,7 +7,7 @@
 Переложение написано на React.js с использованием React Create App. Использована методология БЭМ. В разработке данного проекта были использованы такие инструменты верстки как: flex, grid для адаптивной вёрстки.
 
 ## Проект размещен на виртуальной машине:
-Ссылка на фронтенд: https://vladikur.nomoredomains.rocks
+Ссылка на фронтенд: https://vladikur.nomoredomains.rocks \
 Ссылка на бэкенд:https://api.vladikur.nomoredomains.rocks
 
 ## Доступные скрипты
