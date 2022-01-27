@@ -16,6 +16,9 @@ function Register(props) {
   const [isValidPassword, setIsValidPassword] = React.useState(false);
   const [isValidName, setIsValidName] = React.useState(false);
 
+  const [err, setErr] = React.useState(false);
+  const [errText, setErrText] = React.useState('');
+
   function handleChangeEmail(e) {
     if (!validator.isEmail(e.target.value)) {
       setErrorEmail('Введите корректный E-mail')
@@ -88,6 +91,18 @@ function Register(props) {
     resetForm();
   }
 
+  React.useEffect(() => {
+    if(props.error === 'Ошибка: Conflict') {
+      setErr(true)
+      setErrText('Пользователь с таким email уже существует.')
+    }
+    if(props.error !== 'Ошибка: Conflict' && props.error !== '') {
+      setErr(true)
+      setErrText('При регистрации произошла ошибка. Попробуйте ещё раз.')
+    }
+
+  }, [props.error]);
+
   return (
     <section className="register">
       <div className="register__header-container">
@@ -112,7 +127,7 @@ function Register(props) {
           <span className="form__input-error">{errorPassword}</span>
         </div>
         <div className="form__error-container form__error-container_margin-top_register">
-          <p className="form__error-name">Пользователь с таким email уже существует.</p>
+          {err ? <p className="form__error-name">{errText}</p> : ''}
         </div>
         <button disabled={!isValidPassword || !isValidEmail || !isValidName } type="submit" className={submitButtonClassName}>Зарегистрироваться</button>
         <div className="form__link-container">

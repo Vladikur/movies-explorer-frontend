@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Form from '../Form/Form';
 import { NavLink } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -12,6 +12,9 @@ function Login(props) {
   const [errorPassword, setErrorPassword] = React.useState('');
   const [isValidEmail, setIsValidEmail] = React.useState(false);
   const [isValidPassword, setIsValidPassword] = React.useState(false);
+
+  const [errUnauthorized, setErrUnauthorized] = React.useState(false);
+  const [errText, setErrText] = React.useState('');
 
   function handleChangeEmail(e) {
     if (!validator.isEmail(e.target.value)) {
@@ -64,6 +67,13 @@ function Login(props) {
     resetForm();
   }
 
+  React.useEffect(() => {
+    if(props.error === 'Ошибка: Unauthorized') {
+      setErrUnauthorized(true)
+      setErrText('Вы ввели неправильный логин или пароль.')
+    }
+  }, [props.error]);
+
   return (
     <section className="login">
       <div className="login__header-container">
@@ -83,7 +93,7 @@ function Login(props) {
           <span className="form__input-error">{errorPassword}</span>
         </div>
         <div className="form__error-container form__error-container_margin-top_login">
-          <p className="form__error-name">Пользователь с таким email уже существует.</p>
+          {errUnauthorized ? <p className="form__error-name">{errText}</p> : ''}
         </div>
         <button disabled={!isValidPassword || !isValidEmail} type="submit" className={submitButtonClassName}>Войти</button>
         <div className="form__link-container">

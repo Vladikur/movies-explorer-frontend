@@ -14,6 +14,7 @@ import Register from '../Register/Register';
 import apiMovies from '../../utils/MoviesApi';
 import * as MainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 
 function App() {
@@ -110,9 +111,11 @@ function App() {
       if (res) {
         history.push('/sign-in')
       }
+      setError('')
     })
     .catch((err) => {
       console.log(err)
+      setError(err)
     })
   }
 
@@ -124,10 +127,12 @@ function App() {
         tokenCheck()
         setMovies([ ])
         history.push('/movies')
+        setError('')
       }
     })
     .catch((err) => {
       console.log(err)
+      setError(err)
     })
   }
 
@@ -239,6 +244,8 @@ function App() {
           <Footer/>
         </Route>
 
+
+
         <Route path='/movies'>
           <Header
             singOut={handleSingOut}
@@ -247,7 +254,8 @@ function App() {
               onMobileMenu={handleMobileMenuClick}
             />
           </Header>
-          <Movies
+          <ProtectedRoute
+            loggedIn={loggedIn}
             shortMovies={shortMovies}
             problemConection={conectionProblem}
             movieName={handleSearch}
@@ -256,6 +264,7 @@ function App() {
             onCardLike={handleCardLike}
             savedMovies={savedMovies}
             onCardDislike={handleCardDislike}
+            component={Movies}
           />
           <Footer/>
         </Route>
@@ -268,13 +277,15 @@ function App() {
               onMobileMenu={handleMobileMenuClick}
             />
           </Header>
-          <SavedMovies
+          <ProtectedRoute
+            loggedIn={loggedIn}
             problemConection={conectionProblem}
             movieName={handleSearch}
             isReceiving={isReceiving}
             savedMovies={savedMovies}
             movieDelete={handleMovieDelete}
             shortMovies={shortMyMovies}
+            component={SavedMovies}
           />
           <Footer/>
         </Route>
@@ -287,22 +298,26 @@ function App() {
               onMobileMenu={handleMobileMenuClick}
             />
           </Header>
-          <Profile
+          <ProtectedRoute
+            loggedIn={loggedIn}
             singOut={handleSingOut}
             onUpdateUser={handleUpdateUser}
             error={error}
+            component={Profile}
           />
         </Route>
 
         <Route path='/sign-in'>
           <Login 
             onLogin={handleLogin}
+            error={error}
           />
         </Route>
 
         <Route path='/sign-up'>
           <Register
             onRegister={handleRegister}
+            error={error}
           />
         </Route>
 

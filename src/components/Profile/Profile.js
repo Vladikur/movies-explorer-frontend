@@ -119,7 +119,7 @@ function Profile(props) {
         {isRedact ? <button disabled={errConflict || errConnect || !isValidEmail || !isValidEmail} type="submit" className={buttonClassName}>Сохранить</button> :
           <div className="profile__container">
             <button onClick={handleRedact} className="profile__redact" aria-label="Редактирование профиля" type="button">Редактировать</button>
-            <NavLink onClick={props.singOut} to="/sign-in" className="profile__link">Выйти из аккаунта</NavLink>
+            <NavLink onClick={props.singOut} to="/" className="profile__link">Выйти из аккаунта</NavLink>
           </div>
         }
         </form>
