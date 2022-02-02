@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, NavLink, useHistory, Redirect } from 'react-router-dom';
+import { Route, Switch, NavLink, useHistory } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -26,7 +26,7 @@ function App() {
   const [isReceiving, setIsReceiving] = React.useState(false);
   const [movieName, setMovieName] = React.useState('');
   const [conectionProblem, setConectionProblem] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setСurrentUser] = React.useState({
     _id: '', 
     email: '',
@@ -109,7 +109,7 @@ function App() {
     MainApi.register({ password, email, name })
     .then((res) => {
       if (res) {
-        history.push('/sign-in')
+        handleLogin({ password, email })
       }
       setError('')
     })
@@ -126,7 +126,6 @@ function App() {
         localStorage.setItem('jwt', data.token);
         tokenCheck()
         setMovies([ ])
-        history.push('/movies')
         setError('')
       }
     })
@@ -135,13 +134,15 @@ function App() {
       setError(err)
     })
   }
-
+  
   useEffect(() => {
-    if (loggedIn === true) {
+    if (loggedIn === true && history.location.pathname === "/sign-up") {
+      history.push('/movies')
+    }
+    if (loggedIn === true && history.location.pathname === "/sign-in") {
       history.push('/movies')
     }
   }, [loggedIn, history])
-
 
   useEffect(() => {
     tokenCheck()
@@ -163,8 +164,15 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
+        setLoggedIn(false)
       })
+    } else {
+      setLoggedIn(false)
     }
+  }
+
+  function goToBack () {
+    history.goBack()
   }
 
   function handleSingOut () {
@@ -220,7 +228,7 @@ function App() {
     .updateUser(user)
     .then((data) => {
       setСurrentUser(data)
-      setError('')
+      setError('Данные успешно изменены.')
     })
     .catch((err) => {
       console.log(err)
@@ -234,22 +242,23 @@ function App() {
       <Switch>
 
         <Route exact path='/'>
-          <Header
-            singOut={handleSingOut}
-          >
-            <NavLink to="/sign-up" className="navigation__link">Регистрация</NavLink>
-            <NavLink to="/sign-in" className="navigation__link navigation__link_type_signin">Войти</NavLink>
+          <Header>
+            { loggedIn ? 
+              <Navigation
+                onMobileMenu={handleMobileMenuClick}
+              /> :
+              <div className="navigation__container2">
+                <NavLink to="/sign-up" className="navigation__link">Регистрация</NavLink>
+                <NavLink to="/sign-in" className="navigation__link navigation__link_type_signin">Войти</NavLink>
+              </div>
+            }
           </Header>
           <Main/>
           <Footer/>
         </Route>
 
-
-
         <Route path='/movies'>
-          <Header
-            singOut={handleSingOut}
-          >
+          <Header>
             <Navigation
               onMobileMenu={handleMobileMenuClick}
             />
@@ -270,9 +279,7 @@ function App() {
         </Route>
 
         <Route path='/saved-films'>
-          <Header
-            singOut={handleSingOut}
-          >
+          <Header>
             <Navigation
               onMobileMenu={handleMobileMenuClick}
             />
@@ -291,9 +298,7 @@ function App() {
         </Route>
 
         <Route path='/profile'>
-          <Header
-            singOut={handleSingOut}
-          >
+          <Header>
             <Navigation
               onMobileMenu={handleMobileMenuClick}
             />
@@ -322,7 +327,9 @@ function App() {
         </Route>
 
         <Route path="*">
-          <PageNotFound />
+          <PageNotFound 
+          back={goToBack}
+          />
         </Route>
 
       </Switch>

@@ -145,6 +145,17 @@
   color: #FF004C;
 }
 
+.profile__ok-name {
+  margin: 0;
+  font-family: Inter, 'Arial', sans-serif;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #2BE080;
+}
+
 .profile__input-error{
   position: absolute;
   bottom: 0;
