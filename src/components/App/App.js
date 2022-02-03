@@ -20,11 +20,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [allMovies, setAllMovies] = React.useState([]);
-  const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isReceiving, setIsReceiving] = React.useState(false);
-  const [movieName, setMovieName] = React.useState('');
   const [conectionProblem, setConectionProblem] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setСurrentUser] = React.useState({
@@ -33,6 +30,7 @@ function App() {
     name: '',
   });
   const [error, setError] = React.useState('');
+  const history = useHistory();
 
   function handleMobileMenuClick() {
     setIsMobileMenuOpen(true);
@@ -42,7 +40,7 @@ function App() {
     setIsMobileMenuOpen(false);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     MainApi
     .getSavedMovie()
     .then (data => {
@@ -51,59 +49,23 @@ function App() {
     .catch(err => console.log(err))
   }, [loggedIn]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsReceiving(true)
     apiMovies
     .getMovies()
     .then (data => {
+      localStorage.setItem("movies", JSON.stringify(data));
       setConectionProblem(false)
-      setAllMovies(data)
-      const result = data.filter(f => f.nameRU.toLowerCase().match(movieName.toLowerCase()))
-      if (movieName) {
-        setMovies(result)
-      } else {
-        setMovies([ ])
-      }
     })
     .catch((err) => {
       setConectionProblem(true)
-      setMovies([ ])
+      localStorage.setItem("movies", JSON.stringify([]));
       console.log(err)
     })
     .finally(() => {
       setIsReceiving(false)
     });
-  }, [movieName]);
-
-  function handleSearch(movie) {
-    setMovieName(movie)
-  }
-
-  function shortMovies(checked) {
-    if (checked) {
-      const result = movies.filter(f => f.duration < 40)
-      setMovies(result)
-    } else {
-      const result = allMovies.filter(f => f.nameRU.toLowerCase().match(movieName.toLowerCase()))
-      setMovies(result)
-    }
-  }
-
-  function shortMyMovies(checked) {
-    if (checked) {
-      const result = savedMovies.filter(f => f.duration < 40)
-      setSavedMovies(result)
-    } else {
-      MainApi
-      .getSavedMovie()
-      .then (data => {
-      setSavedMovies(data)
-      })
-      .catch(err => console.log(err))
-    }
-  }
-
-  const history = useHistory();
+  }, [loggedIn]);
 
   function handleRegister ({ password, email, name }) {
     MainApi.register({ password, email, name })
@@ -125,7 +87,6 @@ function App() {
       if (data.token) {
         localStorage.setItem('jwt', data.token);
         tokenCheck()
-        setMovies([ ])
         setError('')
       }
     })
@@ -178,10 +139,14 @@ function App() {
   function handleSingOut () {
     setСurrentUser({email: '', name: '', _id: ''})
     localStorage.removeItem('jwt');
+    localStorage.setItem("movies", JSON.stringify([]));
+    localStorage.setItem("foundMovieName", JSON.stringify(''));
+    localStorage.setItem("shortMovies", JSON.stringify(false));
     setLoggedIn(false)
   }
 
   function handleCardLike(movie) {
+    console.log(movie)
     const movieLiked = {
       country: `${movie.country}`,
       director: movie.director,
@@ -199,6 +164,7 @@ function App() {
     .likedMovie(movieLiked)
     .then((data) => {
       setSavedMovies([...savedMovies, data ])
+      localStorage.setItem("savedMovies", JSON.stringify([...savedMovies, data ]));
     })
     .catch(err => console.log(err))
   }
@@ -217,7 +183,7 @@ function App() {
     const result = savedMovies.find(f => f.movieId === movie.id)
     MainApi
     .deleteMovie(result._id)
-    .then((data) => {
+    .then(() => {
       setSavedMovies((state) => state.filter((c) => c._id !== result._id));
     })
     .catch(err => console.log(err))
@@ -265,11 +231,8 @@ function App() {
           </Header>
           <ProtectedRoute
             loggedIn={loggedIn}
-            shortMovies={shortMovies}
             problemConection={conectionProblem}
-            movieName={handleSearch}
             isReceiving={isReceiving}
-            initialMovies={movies}
             onCardLike={handleCardLike}
             savedMovies={savedMovies}
             onCardDislike={handleCardDislike}
@@ -287,11 +250,9 @@ function App() {
           <ProtectedRoute
             loggedIn={loggedIn}
             problemConection={conectionProblem}
-            movieName={handleSearch}
             isReceiving={isReceiving}
             savedMovies={savedMovies}
             movieDelete={handleMovieDelete}
-            shortMovies={shortMyMovies}
             component={SavedMovies}
           />
           <Footer/>
